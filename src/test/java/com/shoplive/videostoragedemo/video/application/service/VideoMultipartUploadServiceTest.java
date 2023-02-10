@@ -4,6 +4,7 @@ import static org.mockito.BDDMockito.*;
 
 import java.nio.file.Path;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,12 +14,16 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.shoplive.videostoragedemo.config.properties.VideoStorageProperties;
 import com.shoplive.videostoragedemo.video.application.port.out.VideoSaveMetadataPort;
 import com.shoplive.videostoragedemo.video.domain.Video;
 
 @DisplayName("VideoMultipartUploadService - 업로드 요청")
 @ExtendWith(MockitoExtension.class)
 class VideoMultipartUploadServiceTest {
+
+  @Mock
+  VideoStorageProperties videoStorageProperties;
 
   @Mock
   VideoFactory videoFactory;
@@ -28,6 +33,11 @@ class VideoMultipartUploadServiceTest {
 
   @InjectMocks
   VideoMultipartUploadService videoMultipartUploadService;
+
+  @BeforeEach
+  void setUp() {
+    given(videoStorageProperties.getPath()).willReturn("./app/data");
+  }
 
   @Test
   @DisplayName("Video 생성요청후, 메타데이터 저장을 요청")
