@@ -1,0 +1,16 @@
+spring:
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      dialect: org.hibernate.dialect.MySQLDialect
+  datasource:
+    url: ${DATASOURCE_URL}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
