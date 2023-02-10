@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  database:
+    container_name: database
+    image: mysql/mysql-server:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DATASOURCE_PASSWORD}
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: "videos"
+      MYSQL_TCP_PORT: 3307
+      TZ: Asia/Seoul
+    volumes:
+      - ./mysql-init.d:/docker-entrypoint-initdb.d
+    ports:
+      - "3307:3307"
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+
+  video-storage:
+    container_name: video-storage
+    build: .
+    volumes:
+      - ./videos:/app/data
+    environment:
+      SPRING_DATASOURCE_URL: ${DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DATASOURCE_PASSWORD}
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on:
+      - database
