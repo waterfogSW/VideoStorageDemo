@@ -40,9 +40,6 @@ dependencies {
     //Mysql
     runtimeOnly 'com.mysql:mysql-connector-j'
 
-    //Java media framework
-    compileOnly 'javax.media:jmf:2.1.1e'
-
     //H2 for test
     testRuntimeOnly 'com.h2database:h2'
 
