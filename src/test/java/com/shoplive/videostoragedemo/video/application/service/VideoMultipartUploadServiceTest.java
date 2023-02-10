@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.shoplive.videostoragedemo.video.application.port.out.VideoSaveMetadataPort;
 import com.shoplive.videostoragedemo.video.domain.Video;
 
-@DisplayName("업로드 서비스")
+@DisplayName("VideoMultipartUploadService - 업로드 요청")
 @ExtendWith(MockitoExtension.class)
 class VideoMultipartUploadServiceTest {
 
