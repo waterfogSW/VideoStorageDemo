@@ -15,7 +15,6 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.shoplive.videostoragedemo.video.adapter.in.web.VideoMultipartUploadController;
 import com.shoplive.videostoragedemo.video.application.port.in.VideoMultipartUploadCommand;
 
 @DisplayName("VideoMultipartUploadController - 업로드 POST 요청")
@@ -55,7 +54,7 @@ class VideoMultipartUploadControllerTest {
       String mediaType
   ) {
     var fileData = new byte[byteSize * 1024 * 1024];
-    return new MockMultipartFile("file", fileName, mediaType, fileData);
+    return new MockMultipartFile(name, fileName, mediaType, fileData);
   }
 
 }
