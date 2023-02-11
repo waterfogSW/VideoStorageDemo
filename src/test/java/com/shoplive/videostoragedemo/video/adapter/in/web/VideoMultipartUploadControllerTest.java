@@ -1,4 +1,4 @@
-package com.shoplive.videostoragedemo.video.adapter;
+package com.shoplive.videostoragedemo.video.adapter.in.web;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
