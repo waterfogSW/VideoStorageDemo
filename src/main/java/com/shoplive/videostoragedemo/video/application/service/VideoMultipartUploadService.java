@@ -1,6 +1,7 @@
 package com.shoplive.videostoragedemo.video.application.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.shoplive.videostoragedemo.config.properties.VideoStorageProperties;
@@ -20,6 +21,7 @@ public class VideoMultipartUploadService implements VideoMultipartUploadCommand 
   private final VideoFactory videoFactory;
 
   @Override
+  @Transactional
   public void upload(MultipartFile multipartFile) {
     final var video = videoFactory.create(videoStorageProperties.getPath(), multipartFile);
     videoSaveMetadataPort.save(video);
