@@ -9,7 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockMultipartFile;
 
-@DisplayName("VideoFactory - Video 생성요청")
+@DisplayName("App - Video 도메인 생성요청")
 class VideoFactoryTest {
 
   VideoFactory videoFactory = new VideoFactory();

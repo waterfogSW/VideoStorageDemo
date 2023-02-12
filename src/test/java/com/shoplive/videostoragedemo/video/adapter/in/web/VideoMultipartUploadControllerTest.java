@@ -17,7 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.shoplive.videostoragedemo.video.application.port.in.VideoMultipartUploadCommand;
 
-@DisplayName("VideoMultipartUploadController - 업로드 POST 요청")
+@DisplayName("Web - 비디오 파일 업로드 POST 요청")
 @AutoConfigureRestDocs
 @WebMvcTest(controllers = VideoMultipartUploadController.class)
 class VideoMultipartUploadControllerTest {

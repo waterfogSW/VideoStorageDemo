@@ -22,7 +22,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.shoplive.videostoragedemo.video.application.port.in.VideoFileProvideCommand;
 import com.shoplive.videostoragedemo.video.domain.VideoFileResource;
 
-@DisplayName("VideoResourceProvideController - 리소스 GET 요청")
+@DisplayName("Web - 비디오 파일 조회 GET 요청")
 @AutoConfigureRestDocs
 @WebMvcTest(controllers = VideoResourceProvideController.class)
 class VideoResourceProvideControllerTest {
