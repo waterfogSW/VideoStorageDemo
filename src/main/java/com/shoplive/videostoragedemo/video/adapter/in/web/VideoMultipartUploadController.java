@@ -19,7 +19,7 @@ public class VideoMultipartUploadController {
   private final VideoMultipartUploadCommand videoMultipartUploadCommand;
 
   @PostMapping(value = "video/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-  @ResponseStatus(HttpStatus.OK)
+  @ResponseStatus(HttpStatus.CREATED)
   public void upload(
       @RequestParam
       MultipartFile file

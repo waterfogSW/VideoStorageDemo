@@ -31,14 +31,14 @@ class VideoMultipartUploadControllerTest {
   MockMvc mockMvc;
 
   @Test
-  @DisplayName("멀티파트 폼으로 POST 요청 성공 - 200 응답")
+  @DisplayName("POST: /video/upload 요청 성공시 201응답")
   void upload() throws Exception {
 
     final var file =
         generateMockMultipartFile("file", "video.mp4", 10 * 1024 * 1024, MediaType.MULTIPART_FORM_DATA_VALUE);
 
     mockMvc.perform(multipart(TARGET_API).file(file))
-           .andExpect(status().isOk())
+           .andExpect(status().isCreated())
            .andDo(
                document(
                    "Video multipart upload",
