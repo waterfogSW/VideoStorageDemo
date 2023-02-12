@@ -17,7 +17,7 @@ import com.shoplive.videostoragedemo.video.application.port.out.VideoLookUpMetaD
 import com.shoplive.videostoragedemo.video.application.util.FileResourceUtil;
 import com.shoplive.videostoragedemo.video.domain.Video;
 
-@DisplayName("App - 비디오파일 제공 요청")
+@DisplayName("App - 영상 파일 제공 기능")
 @ExtendWith(MockitoExtension.class)
 public class VideoFileProvideServiceTest {
 

@@ -22,7 +22,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.shoplive.videostoragedemo.video.application.port.in.VideoFileProvideCommand;
 import com.shoplive.videostoragedemo.video.domain.VideoFileResource;
 
-@DisplayName("Web - 비디오 파일 조회 GET 요청")
+@DisplayName("Web - 영상 파일 조회 기능")
 @AutoConfigureRestDocs
 @WebMvcTest(controllers = VideoResourceProvideController.class)
 class VideoResourceProvideControllerTest {
@@ -34,7 +34,7 @@ class VideoResourceProvideControllerTest {
   private VideoFileProvideCommand fileProvideCommand;
 
   @Test
-  @DisplayName("fileName에 해당하는 리소스를 응답한다.")
+  @DisplayName("GET: /path/to/{fileName} 요청 성공시 해당 파일을 응답한다")
   void provide_shouldReturnVideoFile() throws Exception {
     // Given
     final var fileName = "example.mp4";

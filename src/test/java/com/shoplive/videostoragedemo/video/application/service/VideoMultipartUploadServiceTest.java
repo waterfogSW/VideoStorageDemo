@@ -18,7 +18,7 @@ import com.shoplive.videostoragedemo.config.properties.VideoStorageProperties;
 import com.shoplive.videostoragedemo.video.application.port.out.VideoSaveMetadataPort;
 import com.shoplive.videostoragedemo.video.domain.Video;
 
-@DisplayName("App - 비디오 파일 업로드 요청")
+@DisplayName("App - 영상 파일 업로드 기능")
 @ExtendWith(MockitoExtension.class)
 class VideoMultipartUploadServiceTest {
 

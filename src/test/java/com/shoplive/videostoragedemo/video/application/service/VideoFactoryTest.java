@@ -9,12 +9,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockMultipartFile;
 
-@DisplayName("App - Video 도메인 생성요청")
+@DisplayName("App - Video 도메인 생성 기능")
 class VideoFactoryTest {
 
   VideoFactory videoFactory = new VideoFactory();
 
   @Test
+  @DisplayName("영상도메인 생성")
   void createVideo() throws IOException {
     //setup
     final var tempDirectory = Files.createTempDirectory("temp");

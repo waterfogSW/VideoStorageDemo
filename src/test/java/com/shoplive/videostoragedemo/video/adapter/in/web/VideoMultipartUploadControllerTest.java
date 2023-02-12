@@ -17,7 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.shoplive.videostoragedemo.video.application.port.in.VideoMultipartUploadCommand;
 
-@DisplayName("Web - 비디오 파일 업로드 POST 요청")
+@DisplayName("Web - 영상 파일 업로드 기능")
 @AutoConfigureRestDocs
 @WebMvcTest(controllers = VideoMultipartUploadController.class)
 class VideoMultipartUploadControllerTest {
@@ -31,7 +31,7 @@ class VideoMultipartUploadControllerTest {
   MockMvc mockMvc;
 
   @Test
-  @DisplayName("멀티파트 폼으로 요청 성공시 200을 응답한다")
+  @DisplayName("멀티파트 폼으로 POST 요청 성공 - 200 응답")
   void upload() throws Exception {
 
     final var file =
