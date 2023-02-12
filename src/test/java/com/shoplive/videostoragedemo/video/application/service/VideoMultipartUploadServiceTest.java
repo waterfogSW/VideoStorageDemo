@@ -31,6 +31,9 @@ class VideoMultipartUploadServiceTest {
   @Mock
   VideoSaveMetadataPort videoSaveMetadataPort;
 
+  @Mock
+  VideoFileResizer videoFileResizer;
+
   @InjectMocks
   VideoMultipartUploadService videoMultipartUploadService;
 

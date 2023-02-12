@@ -19,11 +19,13 @@ public class VideoMultipartUploadService implements VideoMultipartUploadCommand 
   private final VideoStorageProperties videoStorageProperties;
   private final VideoSaveMetadataPort videoSaveMetadataPort;
   private final VideoFactory videoFactory;
+  private final VideoFileResizer videoFileResizer;
 
   @Override
   @Transactional
   public void upload(MultipartFile multipartFile) {
     final var video = videoFactory.create(videoStorageProperties.getPath(), multipartFile);
+    videoFileResizer.resize(video, -1, 360);
     videoSaveMetadataPort.save(video);
   }
 
