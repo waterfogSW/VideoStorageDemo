@@ -2,8 +2,6 @@ package com.shoplive.videostoragedemo.video.application.service;
 
 import static org.mockito.BDDMockito.*;
 
-import java.nio.file.Path;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.shoplive.videostoragedemo.common.properties.VideoStorageProperties;
 import com.shoplive.videostoragedemo.video.application.port.out.VideoSaveMetadataPort;
 import com.shoplive.videostoragedemo.video.domain.Video;
+import com.shoplive.videostoragedemo.video.domain.VideoFileInfo;
 
 @DisplayName("App - 영상 파일 업로드 기능")
 @ExtendWith(MockitoExtension.class)
@@ -26,7 +25,7 @@ class VideoMultipartUploadServiceTest {
   VideoStorageProperties videoStorageProperties;
 
   @Mock
-  VideoFactory videoFactory;
+  VideoFileFactory videoFileFactory;
 
   @Mock
   VideoSaveMetadataPort videoSaveMetadataPort;
@@ -47,21 +46,27 @@ class VideoMultipartUploadServiceTest {
   void requestCreateVideo() {
     //given
     final var mockMultipartFile = mockMultipartfile();
-    given(videoFactory.create(anyString(), any(MultipartFile.class))).willReturn(mockVideo());
+    given(videoFileFactory.create(anyString(), any(MultipartFile.class))).willReturn(mockVideoFileInfo());
+    given(videoSaveMetadataPort.save(any(Video.class))).willReturn(mockSavedVideo());
 
     //when
     videoMultipartUploadService.upload(mockMultipartFile);
 
     //then
     verify(videoSaveMetadataPort).save(any(Video.class));
+    verify(videoFileResizer).resize(any(Video.class), anyInt(), anyInt());
   }
 
   private MockMultipartFile mockMultipartfile() {
     return new MockMultipartFile("test", "test", "video/mp4", new byte[]{});
   }
 
-  private Video mockVideo() {
-    return new Video("test", 100, Path.of("test"));
+  private VideoFileInfo mockVideoFileInfo() {
+    return new VideoFileInfo(100L, null);
+  }
+
+  private Video mockSavedVideo() {
+    return new Video(1L, "title", mockVideoFileInfo(), null);
   }
 
 }

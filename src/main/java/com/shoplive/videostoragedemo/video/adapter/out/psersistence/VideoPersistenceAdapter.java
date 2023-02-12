@@ -17,9 +17,10 @@ public class VideoPersistenceAdapter implements
   private final VideoMapper videoMapper;
 
   @Override
-  public void save(Video video) {
+  public Video save(Video video) {
     final var videoJpaEntity = videoMapper.mapToJpaEntity(video);
-    videoJpaRepository.save(videoJpaEntity);
+    final var savedJpaEntity = videoJpaRepository.save(videoJpaEntity);
+    return videoMapper.mapToDomainEntity(savedJpaEntity);
   }
 
   @Override

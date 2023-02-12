@@ -16,6 +16,7 @@ import org.springframework.core.io.ByteArrayResource;
 import com.shoplive.videostoragedemo.video.application.port.out.VideoLookUpMetaDataPort;
 import com.shoplive.videostoragedemo.video.application.util.FileResourceUtil;
 import com.shoplive.videostoragedemo.video.domain.Video;
+import com.shoplive.videostoragedemo.video.domain.VideoFileInfo;
 
 @DisplayName("App - 영상 파일 제공 기능")
 @ExtendWith(MockitoExtension.class)
@@ -41,7 +42,8 @@ public class VideoFileProvideServiceTest {
     final var expectedResource = new byte[]{1, 2, 3};
     final var expectedByteArrayResource = new ByteArrayResource(expectedResource);
 
-    final var video = new Video(expectedTitle, expectedFileSize, expectedFilePath);
+    final var expectedFileInfo = new VideoFileInfo(expectedFileSize, expectedFilePath);
+    final var video = new Video(null, expectedTitle, expectedFileInfo, null);
     given(videoLookUpMetaDataPort.lookUp(fileName)).willReturn(video);
     given(fileResourceUtil.readByteArrayResourceFromPath(expectedFilePath)).willReturn(expectedByteArrayResource);
 

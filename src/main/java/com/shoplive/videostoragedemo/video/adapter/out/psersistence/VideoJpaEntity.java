@@ -5,7 +5,12 @@ import java.util.Objects;
 
 import org.hibernate.Hibernate;
 
+import com.shoplive.videostoragedemo.video.domain.VideoFileInfo;
+
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,27 +32,34 @@ public class VideoJpaEntity implements Serializable {
   @Column(updatable = false, nullable = false)
   private String title;
 
-  @Column(updatable = false, nullable = false)
-  private long fileSize;
+  @Embedded
+  @AttributeOverrides({
+      @AttributeOverride(name="fileSize", column=@Column(name="ORIGINAL_FILESIZE")),
+      @AttributeOverride(name="filePath", column=@Column(name="ORIGINAL_FILEPATH")),
+  })
+  private VideoFileInfoJpaEntity original;
 
-  @Column(updatable = false, nullable = false)
-  private String filePath;
+  @Embedded
+  @AttributeOverrides({
+      @AttributeOverride(name="fileSize", column=@Column(name="RESIZED_FILESIZE")),
+      @AttributeOverride(name="filePath", column=@Column(name="RESIZED_FILEPATH")),
+  })
+  private VideoFileInfoJpaEntity resized;
 
   @Column(updatable = false, nullable = false)
   private String createdAt;
 
-  @Builder
   public VideoJpaEntity(
       Long id,
       String title,
-      long fileSize,
-      String filePath,
+      VideoFileInfoJpaEntity original,
+      VideoFileInfoJpaEntity resized,
       String createdAt
   ) {
     this.id = id;
     this.title = title;
-    this.fileSize = fileSize;
-    this.filePath = filePath;
+    this.original = original;
+    this.resized = resized;
     this.createdAt = createdAt;
   }
 

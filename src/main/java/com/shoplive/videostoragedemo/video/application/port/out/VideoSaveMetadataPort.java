@@ -4,6 +4,6 @@ import com.shoplive.videostoragedemo.video.domain.Video;
 
 public interface VideoSaveMetadataPort {
 
-  void save(Video video);
+  Video save(Video video);
 
 }

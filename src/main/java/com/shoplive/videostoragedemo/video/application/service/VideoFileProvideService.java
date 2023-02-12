@@ -18,13 +18,13 @@ public class VideoFileProvideService implements VideoFileProvideCommand {
 
   @Override
   public VideoFileResource provide(String fileName) {
-    final var filePath = videoLookUpMetaDataPort.lookUp(fileName)
-                                                .getFilePath();
+    final var video = videoLookUpMetaDataPort.lookUp(fileName);
+    final var videoFilePath = video.getOriginal().filePath();
 
-    final var resource = fileResourceUtil.readByteArrayResourceFromPath(filePath);
+    final var videoFileName = videoFilePath.getFileName();
+    final var resource = fileResourceUtil.readByteArrayResourceFromPath(videoFilePath);
 
-    return new VideoFileResource(filePath.getFileName()
-                                         .toString(), resource);
+    return new VideoFileResource(videoFileName.toString(), resource);
   }
 
 }
