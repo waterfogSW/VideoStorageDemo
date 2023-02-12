@@ -18,14 +18,24 @@ public class Video {
   private final LocalDateTime createdAt;
 
   public Video(
+      Long id,
       String title,
       long fileSize,
       Path filePath
   ) {
+    this.id = id;
     this.title = title;
     this.fileSize = fileSize;
     this.filePath = filePath;
     this.createdAt = LocalDateTime.now();
+  }
+
+  public Video(
+      String title,
+      long fileSize,
+      Path filePath
+  ) {
+    this(null, title, fileSize, filePath);
   }
 
 }
