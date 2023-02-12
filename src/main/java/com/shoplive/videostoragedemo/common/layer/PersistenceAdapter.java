@@ -1,4 +1,4 @@
-package com.shoplive.videostoragedemo.config.layer;
+package com.shoplive.videostoragedemo.common.layer;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

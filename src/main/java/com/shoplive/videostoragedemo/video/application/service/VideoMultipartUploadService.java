@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.shoplive.videostoragedemo.config.properties.VideoStorageProperties;
+import com.shoplive.videostoragedemo.common.properties.VideoStorageProperties;
 import com.shoplive.videostoragedemo.video.application.port.in.VideoMultipartUploadCommand;
 import com.shoplive.videostoragedemo.video.application.port.out.VideoSaveMetadataPort;
 

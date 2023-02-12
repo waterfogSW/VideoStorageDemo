@@ -1,4 +1,4 @@
-package com.shoplive.videostoragedemo.config.properties;
+package com.shoplive.videostoragedemo.common.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.bind.ConstructorBinding;

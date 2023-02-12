@@ -1,4 +1,4 @@
-package com.shoplive.videostoragedemo.config.exception;
+package com.shoplive.videostoragedemo.common.exception;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

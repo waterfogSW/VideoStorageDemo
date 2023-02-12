@@ -14,7 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.shoplive.videostoragedemo.config.properties.VideoStorageProperties;
+import com.shoplive.videostoragedemo.common.properties.VideoStorageProperties;
 import com.shoplive.videostoragedemo.video.application.port.out.VideoSaveMetadataPort;
 import com.shoplive.videostoragedemo.video.domain.Video;
 

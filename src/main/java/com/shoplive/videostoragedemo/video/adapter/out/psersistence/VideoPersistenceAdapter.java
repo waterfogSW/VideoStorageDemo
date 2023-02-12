@@ -1,6 +1,6 @@
 package com.shoplive.videostoragedemo.video.adapter.out.psersistence;
 
-import com.shoplive.videostoragedemo.config.layer.PersistenceAdapter;
+import com.shoplive.videostoragedemo.common.layer.PersistenceAdapter;
 import com.shoplive.videostoragedemo.video.application.port.out.VideoLookUpMetaDataPort;
 import com.shoplive.videostoragedemo.video.application.port.out.VideoSaveMetadataPort;
 import com.shoplive.videostoragedemo.video.domain.Video;
