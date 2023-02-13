@@ -7,7 +7,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import com.shoplive.videostoragedemo.common.properties.VideoStorageProperties;
-import com.shoplive.videostoragedemo.video.application.port.out.VideoSaveMetadataPort;
+import com.shoplive.videostoragedemo.video.application.port.out.VideoMetadataSavePort;
 import com.shoplive.videostoragedemo.video.domain.Video;
 import com.shoplive.videostoragedemo.video.domain.VideoFileInfo;
 
@@ -21,7 +21,7 @@ public class VideoFileResizer {
 
   private static final String RESIZE_FAIL_ERROR_MSG = "Failed to resize video.";
 
-  private final VideoSaveMetadataPort videoSaveMetadataPort;
+  private final VideoMetadataSavePort videoMetadataSavePort;
   private final VideoStorageProperties videoStorageProperties;
 
   @Async
@@ -50,7 +50,7 @@ public class VideoFileResizer {
 
     final var resizedFileInfo = VideoFileInfo.from(outputFilePath);
     video.setResizedFile(resizedFileInfo);
-    videoSaveMetadataPort.save(video);
+    videoMetadataSavePort.save(video);
   }
 
   private int process(String[] cmd) {

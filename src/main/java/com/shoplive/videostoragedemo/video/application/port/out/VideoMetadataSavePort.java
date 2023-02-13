@@ -2,8 +2,8 @@ package com.shoplive.videostoragedemo.video.application.port.out;
 
 import com.shoplive.videostoragedemo.video.domain.Video;
 
-public interface VideoLookUpMetaDataPort {
+public interface VideoMetadataSavePort {
 
-  Video lookUpByFileName(String title);
+  Video save(Video video);
 
 }

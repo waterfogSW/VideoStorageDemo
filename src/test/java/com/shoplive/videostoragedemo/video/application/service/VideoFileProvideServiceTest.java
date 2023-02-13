@@ -14,7 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.io.ByteArrayResource;
 
 import com.shoplive.videostoragedemo.common.properties.VideoStorageProperties;
-import com.shoplive.videostoragedemo.video.application.port.out.VideoLookUpMetaDataPort;
+import com.shoplive.videostoragedemo.video.application.port.out.VideoMetaDataLookUpPort;
 import com.shoplive.videostoragedemo.video.application.util.FileResourceUtil;
 import com.shoplive.videostoragedemo.video.domain.Video;
 import com.shoplive.videostoragedemo.video.domain.VideoFileInfo;
@@ -27,7 +27,7 @@ public class VideoFileProvideServiceTest {
   private VideoStorageProperties videoStorageProperties;
 
   @Mock
-  private VideoLookUpMetaDataPort videoLookUpMetaDataPort;
+  private VideoMetaDataLookUpPort videoMetaDataLookUpPort;
 
   @Mock
   private FileResourceUtil fileResourceUtil;
@@ -49,7 +49,7 @@ public class VideoFileProvideServiceTest {
     final var expectedFileInfo = new VideoFileInfo(expectedFileSize, expectedFilePath);
     final var video = new Video(null, expectedTitle, expectedFileInfo, null);
     given(videoStorageProperties.getResizePrefix()).willReturn("resized_");
-    given(videoLookUpMetaDataPort.lookUpByFileName(fileName)).willReturn(video);
+    given(videoMetaDataLookUpPort.lookUpByFileName(fileName)).willReturn(video);
     given(fileResourceUtil.readByteArrayResourceFromPath(expectedFilePath)).willReturn(expectedByteArrayResource);
 
     // When

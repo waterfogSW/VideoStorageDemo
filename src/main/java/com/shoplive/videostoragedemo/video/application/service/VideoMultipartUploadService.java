@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.shoplive.videostoragedemo.video.adapter.in.web.dto.VideoUploadRequest;
 import com.shoplive.videostoragedemo.video.adapter.in.web.dto.VideoUploadResponse;
 import com.shoplive.videostoragedemo.video.application.port.in.VideoMultipartUploadCommand;
-import com.shoplive.videostoragedemo.video.application.port.out.VideoSaveMetadataPort;
+import com.shoplive.videostoragedemo.video.application.port.out.VideoMetadataSavePort;
 import com.shoplive.videostoragedemo.video.application.util.VideoFileFactory;
 import com.shoplive.videostoragedemo.video.application.util.VideoFileResizer;
 import com.shoplive.videostoragedemo.video.domain.Video;
@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class VideoMultipartUploadService implements VideoMultipartUploadCommand {
 
-  private final VideoSaveMetadataPort videoSaveMetadataPort;
+  private final VideoMetadataSavePort videoMetadataSavePort;
   private final VideoFileFactory videoFileFactory;
   private final VideoFileResizer videoFileResizer;
 
@@ -34,7 +34,7 @@ public class VideoMultipartUploadService implements VideoMultipartUploadCommand 
 
     final var originalFileInfo = videoFileFactory.create(multipartFile);
     video.setOriginalFile(originalFileInfo);
-    final var savedVideo = videoSaveMetadataPort.save(video);
+    final var savedVideo = videoMetadataSavePort.save(video);
 
     videoFileResizer.resize(savedVideo, -1, 360);
 

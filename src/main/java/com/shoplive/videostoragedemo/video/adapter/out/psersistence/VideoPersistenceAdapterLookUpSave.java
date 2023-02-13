@@ -2,17 +2,17 @@ package com.shoplive.videostoragedemo.video.adapter.out.psersistence;
 
 import com.shoplive.videostoragedemo.common.layer.PersistenceAdapter;
 import com.shoplive.videostoragedemo.common.properties.VideoStorageProperties;
-import com.shoplive.videostoragedemo.video.application.port.out.VideoLookUpMetaDataPort;
-import com.shoplive.videostoragedemo.video.application.port.out.VideoSaveMetadataPort;
+import com.shoplive.videostoragedemo.video.application.port.out.VideoMetaDataLookUpPort;
+import com.shoplive.videostoragedemo.video.application.port.out.VideoMetadataSavePort;
 import com.shoplive.videostoragedemo.video.domain.Video;
 
 import lombok.RequiredArgsConstructor;
 
 @PersistenceAdapter
 @RequiredArgsConstructor
-public class VideoPersistenceAdapter implements
-    VideoSaveMetadataPort,
-    VideoLookUpMetaDataPort {
+public class VideoPersistenceAdapterLookUpSave implements
+    VideoMetadataSavePort,
+    VideoMetaDataLookUpPort {
 
   private final VideoStorageProperties videoStorageProperties;
   private final VideoJpaRepository videoJpaRepository;
