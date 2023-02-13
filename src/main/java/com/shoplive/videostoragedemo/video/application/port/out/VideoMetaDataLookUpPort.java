@@ -6,4 +6,6 @@ public interface VideoMetaDataLookUpPort {
 
   Video lookUpByFileName(String title);
 
+  Video lookUpById(long id);
+
 }

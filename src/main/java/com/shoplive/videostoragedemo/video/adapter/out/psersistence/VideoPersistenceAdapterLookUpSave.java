@@ -38,4 +38,9 @@ public class VideoPersistenceAdapterLookUpSave implements
                              .orElseThrow(() -> new IllegalArgumentException("File not found"));
   }
 
+  @Override
+  public Video lookUpById(long id) {
+    return null;
+  }
+
 }
