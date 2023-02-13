@@ -1,4 +1,4 @@
-package com.shoplive.videostoragedemo.video.adapter.out.psersistence;
+package com.shoplive.videostoragedemo.video.adapter.out.psersistence.entity;
 
 import java.io.Serializable;
 import java.util.Objects;

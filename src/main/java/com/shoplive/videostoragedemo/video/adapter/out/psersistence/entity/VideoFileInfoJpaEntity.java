@@ -1,4 +1,4 @@
-package com.shoplive.videostoragedemo.video.adapter.out.psersistence;
+package com.shoplive.videostoragedemo.video.adapter.out.psersistence.entity;
 
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;

@@ -4,6 +4,8 @@ import java.nio.file.Path;
 
 import org.springframework.stereotype.Component;
 
+import com.shoplive.videostoragedemo.video.adapter.out.psersistence.entity.VideoFileInfoJpaEntity;
+import com.shoplive.videostoragedemo.video.adapter.out.psersistence.entity.VideoJpaEntity;
 import com.shoplive.videostoragedemo.video.domain.Video;
 import com.shoplive.videostoragedemo.video.domain.VideoFileInfo;
 
