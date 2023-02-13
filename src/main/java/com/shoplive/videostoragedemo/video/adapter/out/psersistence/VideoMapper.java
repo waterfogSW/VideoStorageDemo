@@ -1,6 +1,7 @@
 package com.shoplive.videostoragedemo.video.adapter.out.psersistence;
 
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Component;
 
@@ -32,7 +33,8 @@ public class VideoMapper {
         videoJpaEntity.getId(),
         videoJpaEntity.getTitle(),
         mapToDomainEntity(videoJpaEntity.getOriginal()),
-        mapToDomainEntity(videoJpaEntity.getResized())
+        mapToDomainEntity(videoJpaEntity.getResized()),
+        LocalDateTime.parse(videoJpaEntity.getCreatedAt())
     );
   }
 

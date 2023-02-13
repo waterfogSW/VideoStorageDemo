@@ -8,6 +8,8 @@ import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,7 +42,8 @@ class VideoMetadataControllerTest {
 
     final var originalVideoFileInfo = new VideoFileInfo(1000L, Path.of("original.mp4"));
     final var resizedVideoFileInfo = new VideoFileInfo(500L, Path.of("resized.mp4"));
-    final var video = new Video(id, "test video", originalVideoFileInfo, resizedVideoFileInfo);
+    final var createLocalDateTime = LocalDateTime.now();
+    final var video = new Video(id, "test video", originalVideoFileInfo, resizedVideoFileInfo, createLocalDateTime);
 
     final var resourceUrl = "http://localhost:8080/path/to/";
     final var response = VideoMetadataLookupDetailResponse.of(video, resourceUrl);
@@ -54,7 +57,7 @@ class VideoMetadataControllerTest {
            .andExpect(jsonPath("$.original.videoUrl").value(resourceUrl + originalVideoFileInfo.filePath()))
            .andExpect(jsonPath("$.resized.fileSize").value(500L))
            .andExpect(jsonPath("$.resized.videoUrl").value(resourceUrl + resizedVideoFileInfo.filePath()))
-           .andExpect(jsonPath("$.createAt").value("test video"))
+           .andExpect(jsonPath("$.createAt").value(createLocalDateTime.toString()))
            .andDo(document(
                "video-metadata",
                pathParameters(

@@ -20,13 +20,23 @@ public class Video {
       Long id,
       String title,
       VideoFileInfo original,
-      VideoFileInfo resized
+      VideoFileInfo resized,
+      LocalDateTime createdAt
   ) {
     this.id = id;
     this.title = title;
     this.original = original;
     this.resized = resized;
-    this.createdAt = LocalDateTime.now();
+    this.createdAt = createdAt;
+  }
+
+  public Video(
+      Long id,
+      String title,
+      VideoFileInfo original,
+      VideoFileInfo resized
+  ) {
+    this(id, title, original, resized, LocalDateTime.now());
   }
 
   public static Video from(String title) {
