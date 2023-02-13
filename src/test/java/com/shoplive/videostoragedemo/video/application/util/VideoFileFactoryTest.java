@@ -1,50 +1,68 @@
 package com.shoplive.videostoragedemo.video.application.util;
 
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.BDDMockito.*;
+
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.UUID;
 
-import org.apache.commons.io.FileUtils;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
 
-import com.shoplive.videostoragedemo.video.application.util.VideoFileFactory;
+import com.shoplive.videostoragedemo.common.properties.VideoStorageProperties;
 
-@DisplayName("App - VideoFile 생성 기능")
+@DisplayName("App - 영상 파일 생성 기능")
+@ExtendWith(MockitoExtension.class)
 class VideoFileFactoryTest {
 
-  VideoFileFactory videoFileFactory = new VideoFileFactory();
+  @Mock
+  VideoStorageProperties properties;
+
+  @InjectMocks
+  VideoFileFactory factory;
 
   @Test
-  @DisplayName("파일 생성")
+  @DisplayName("영상 파일 생성")
   void createVideo() throws IOException {
-    //setup
-    final var tempDirectory = Files.createTempDirectory("temp" + UUID.randomUUID());
+    // file storage properties
+    final var tempDirectoryPath = "";
+    given(properties.getPath()).willReturn(tempDirectoryPath);
 
-    //given
-    final var fileName = "test";
-    final var file = mockMultipartFile(fileName, "video/mp4", 1024 * 1024 * 100);
+    // create a mock MultipartFile
+    final var expectedMultipartName = "file";
+    final var expectedFileName = "test.mp4";
+    final var expectedContentType = "video/mp4";
+    byte[] expectedFileContent = "test video content".getBytes();
+    final var mockFile = new MockMultipartFile(
+        expectedMultipartName,
+        expectedFileName,
+        expectedContentType,
+        expectedFileContent
+    );
 
-    //when
-    final var videoFileInfo = videoFileFactory.create(tempDirectory.toString() + "/", file);
+    // call the create method
+    final var fileInfo = factory.create(mockFile);
 
-    //then
-    final var filePath = videoFileInfo.filePath();
-    Assertions.assertThat(filePath.endsWith("test")).isTrue();
+    // assert that the file was created and has the correct content
+    final var filePath = fileInfo.filePath();
 
-    //tearDown
-    FileUtils.deleteDirectory(tempDirectory.toFile());
-  }
+    assertThat(Files.exists(filePath)).isTrue();
+    assertThat(expectedFileContent.length).isEqualTo(Files.size(filePath));
+    assertThat(expectedFileContent).isEqualTo(Files.readAllBytes(filePath));
 
-  private MockMultipartFile mockMultipartFile(
-      String name,
-      String fileFormat,
-      int size
-  ) {
-    final var content = new byte[size];
-    return new MockMultipartFile(name, name, fileFormat, content);
+    // assert that the filename is a UUID
+    String filename = filePath.getFileName()
+                              .toString();
+
+    assertThat(filename).isEqualTo(expectedFileName);
+
+    // delete the temporary file
+    Files.deleteIfExists(filePath);
   }
 
 }

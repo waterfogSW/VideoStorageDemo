@@ -1,6 +1,7 @@
 package com.shoplive.videostoragedemo.video.adapter.out.psersistence;
 
 import com.shoplive.videostoragedemo.common.layer.PersistenceAdapter;
+import com.shoplive.videostoragedemo.common.properties.VideoStorageProperties;
 import com.shoplive.videostoragedemo.video.application.port.out.VideoLookUpMetaDataPort;
 import com.shoplive.videostoragedemo.video.application.port.out.VideoSaveMetadataPort;
 import com.shoplive.videostoragedemo.video.domain.Video;
@@ -13,6 +14,7 @@ public class VideoPersistenceAdapter implements
     VideoSaveMetadataPort,
     VideoLookUpMetaDataPort {
 
+  private final VideoStorageProperties videoStorageProperties;
   private final VideoJpaRepository videoJpaRepository;
   private final VideoMapper videoMapper;
 
@@ -24,11 +26,16 @@ public class VideoPersistenceAdapter implements
   }
 
   @Override
-  public Video lookUp(String title) {
-    final var videoJpaEntity = videoJpaRepository.findByTitle(title)
-                                                 .orElseThrow(() -> new IllegalArgumentException("File not found"));
+  public Video lookUpByFileName(String fileName) {
+    if (fileName.startsWith("resized_")) {
+      return videoJpaRepository.findByResized_FilePath(videoStorageProperties.getPath() + fileName)
+                               .map(videoMapper::mapToDomainEntity)
+                               .orElseThrow(() -> new IllegalArgumentException("File not found"));
+    }
 
-    return videoMapper.mapToDomainEntity(videoJpaEntity);
+    return videoJpaRepository.findByOriginal_FilePath(videoStorageProperties.getPath() + fileName)
+                             .map(videoMapper::mapToDomainEntity)
+                             .orElseThrow(() -> new IllegalArgumentException("File not found"));
   }
 
 }

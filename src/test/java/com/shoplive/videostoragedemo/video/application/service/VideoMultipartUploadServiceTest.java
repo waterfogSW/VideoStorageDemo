@@ -24,8 +24,6 @@ import com.shoplive.videostoragedemo.video.domain.VideoFileInfo;
 @ExtendWith(MockitoExtension.class)
 class VideoMultipartUploadServiceTest {
 
-  @Mock
-  VideoStorageProperties videoStorageProperties;
 
   @Mock
   VideoFileFactory videoFileFactory;
@@ -39,18 +37,13 @@ class VideoMultipartUploadServiceTest {
   @InjectMocks
   VideoMultipartUploadService videoMultipartUploadService;
 
-  @BeforeEach
-  void setUp() {
-    given(videoStorageProperties.getPath()).willReturn("./app/data");
-  }
-
   @Test
   @DisplayName("Video 생성요청후, 메타데이터 저장을 요청")
   void requestCreateVideo() {
     //given
     final var request = new VideoUploadRequest("test");
     final var mockMultipartFile = mockMultipartfile();
-    given(videoFileFactory.create(anyString(), any(MultipartFile.class))).willReturn(mockVideoFileInfo());
+    given(videoFileFactory.create(any(MultipartFile.class))).willReturn(mockVideoFileInfo());
     given(videoSaveMetadataPort.save(any(Video.class))).willReturn(mockSavedVideo());
 
     //when

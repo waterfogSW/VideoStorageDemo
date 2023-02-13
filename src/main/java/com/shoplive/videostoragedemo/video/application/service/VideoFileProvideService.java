@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.shoplive.videostoragedemo.video.application.port.in.VideoFileProvideCommand;
 import com.shoplive.videostoragedemo.video.application.port.out.VideoLookUpMetaDataPort;
 import com.shoplive.videostoragedemo.video.application.util.FileResourceUtil;
+import com.shoplive.videostoragedemo.video.domain.VideoFileInfo;
 import com.shoplive.videostoragedemo.video.domain.VideoFileResource;
 
 import lombok.RequiredArgsConstructor;
@@ -18,13 +19,19 @@ public class VideoFileProvideService implements VideoFileProvideCommand {
 
   @Override
   public VideoFileResource provide(String fileName) {
-    final var video = videoLookUpMetaDataPort.lookUp(fileName);
-    final var videoFilePath = video.getOriginal()
-                                   .filePath();
+    final var video = videoLookUpMetaDataPort.lookUpByFileName(fileName);
 
-    final var videoFileName = videoFilePath.getFileName();
-    final var resource = fileResourceUtil.readByteArrayResourceFromPath(videoFilePath);
+    if (fileName.startsWith("resized_")) {
+      return getVideoFileResource(video.getResized());
+    }
 
+    return getVideoFileResource(video.getOriginal());
+  }
+
+  private VideoFileResource getVideoFileResource(VideoFileInfo videoFileInfo) {
+    final var path = videoFileInfo.filePath();
+    final var videoFileName = path.getFileName();
+    final var resource = fileResourceUtil.readByteArrayResourceFromPath(path);
     return new VideoFileResource(videoFileName.toString(), resource);
   }
 

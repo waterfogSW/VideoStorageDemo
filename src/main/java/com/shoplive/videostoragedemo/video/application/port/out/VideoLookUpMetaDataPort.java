@@ -4,6 +4,6 @@ import com.shoplive.videostoragedemo.video.domain.Video;
 
 public interface VideoLookUpMetaDataPort {
 
-  Video lookUp(String title);
+  Video lookUpByFileName(String title);
 
 }

@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface VideoJpaRepository extends JpaRepository<VideoJpaEntity, Long> {
 
-  Optional<VideoJpaEntity> findByTitle(String title);
+  Optional<VideoJpaEntity> findByResized_FilePath(String path);
+
+  Optional<VideoJpaEntity> findByOriginal_FilePath(String path);
 
 }

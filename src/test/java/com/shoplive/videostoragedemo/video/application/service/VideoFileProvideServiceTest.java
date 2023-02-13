@@ -44,7 +44,7 @@ public class VideoFileProvideServiceTest {
 
     final var expectedFileInfo = new VideoFileInfo(expectedFileSize, expectedFilePath);
     final var video = new Video(null, expectedTitle, expectedFileInfo, null);
-    given(videoLookUpMetaDataPort.lookUp(fileName)).willReturn(video);
+    given(videoLookUpMetaDataPort.lookUpByFileName(fileName)).willReturn(video);
     given(fileResourceUtil.readByteArrayResourceFromPath(expectedFilePath)).willReturn(expectedByteArrayResource);
 
     // When
