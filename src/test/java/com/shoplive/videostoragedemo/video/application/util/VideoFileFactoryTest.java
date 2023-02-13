@@ -1,4 +1,4 @@
-package com.shoplive.videostoragedemo.video.application.service;
+package com.shoplive.videostoragedemo.video.application.util;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,6 +9,8 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockMultipartFile;
+
+import com.shoplive.videostoragedemo.video.application.util.VideoFileFactory;
 
 @DisplayName("App - VideoFile 생성 기능")
 class VideoFileFactoryTest {

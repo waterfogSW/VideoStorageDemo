@@ -1,4 +1,4 @@
-package com.shoplive.videostoragedemo.video.application.service;
+package com.shoplive.videostoragedemo.video.application.util;
 
 import java.io.IOException;
 import java.nio.file.Files;

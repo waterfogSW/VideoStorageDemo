@@ -14,6 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.shoplive.videostoragedemo.common.properties.VideoStorageProperties;
 import com.shoplive.videostoragedemo.video.application.port.out.VideoSaveMetadataPort;
+import com.shoplive.videostoragedemo.video.application.util.VideoFileFactory;
+import com.shoplive.videostoragedemo.video.application.util.VideoFileResizer;
 import com.shoplive.videostoragedemo.video.domain.Video;
 import com.shoplive.videostoragedemo.video.domain.VideoFileInfo;
 
