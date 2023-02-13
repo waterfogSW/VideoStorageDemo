@@ -40,6 +40,9 @@ dependencies {
     //Mysql
     runtimeOnly 'com.mysql:mysql-connector-j'
 
+    // Annotation processor
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
     //H2 for test
     testRuntimeOnly 'com.h2database:h2'
 
