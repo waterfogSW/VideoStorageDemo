@@ -31,12 +31,12 @@ public class VideoPersistenceAdapterLookUpSave implements
     if (fileName.startsWith("resized_")) {
       return videoJpaRepository.findByResized_FilePath(videoStorageProperties.getPath() + fileName)
                                .map(videoMapper::mapToDomainEntity)
-                               .orElseThrow(() -> new IllegalArgumentException("File not found"));
+                               .orElseThrow(() -> new NotFoundException("File not found"));
     }
 
     return videoJpaRepository.findByOriginal_FilePath(videoStorageProperties.getPath() + fileName)
                              .map(videoMapper::mapToDomainEntity)
-                             .orElseThrow(() -> new IllegalArgumentException("File not found"));
+                             .orElseThrow(() -> new NotFoundException("File not found"));
   }
 
   @Override
