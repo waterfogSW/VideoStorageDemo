@@ -1,5 +1,8 @@
 package com.shoplive.videostoragedemo.common.properties;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.bind.ConstructorBinding;
 
@@ -11,14 +14,17 @@ public class VideoStorageProperties {
 
   private final String path;
   private final String resizePrefix;
+  private final String resourceUrl;
 
   @ConstructorBinding
   public VideoStorageProperties(
       String path,
-      String resizePrefix
+      String resizePrefix,
+      String resourceUrl
   ) {
     this.path = path.endsWith("/") ? path : path + "/";
     this.resizePrefix = resizePrefix.endsWith("_") ? resizePrefix : resizePrefix + "_";
+    this.resourceUrl = resourceUrl.endsWith("/") ? resourceUrl : resourceUrl + "/";
   }
 
 }

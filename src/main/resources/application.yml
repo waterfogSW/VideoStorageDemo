@@ -19,3 +19,4 @@ video:
   storage:
     path: ./app/data
     resize-prefix: resized_
+    resource-url: http://localhost:8080/path/to
