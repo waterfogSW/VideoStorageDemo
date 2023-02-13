@@ -1,5 +1,6 @@
 package com.shoplive.videostoragedemo.video.adapter.out.psersistence;
 
+import com.shoplive.videostoragedemo.common.exception.NotFoundException;
 import com.shoplive.videostoragedemo.common.layer.PersistenceAdapter;
 import com.shoplive.videostoragedemo.common.properties.VideoStorageProperties;
 import com.shoplive.videostoragedemo.video.application.port.out.VideoMetaDataLookUpPort;
@@ -40,7 +41,9 @@ public class VideoPersistenceAdapterLookUpSave implements
 
   @Override
   public Video lookUpById(long id) {
-    return null;
+    return videoJpaRepository.findById(id)
+                             .map(videoMapper::mapToDomainEntity)
+                             .orElseThrow(() -> new NotFoundException("Video not found"));
   }
 
 }
