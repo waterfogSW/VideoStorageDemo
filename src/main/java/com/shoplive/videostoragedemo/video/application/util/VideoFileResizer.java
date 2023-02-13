@@ -37,7 +37,8 @@ public class VideoFileResizer {
       throw new IllegalStateException("Resized file already exist");
     }
 
-    final var inputFilePath = video.getOriginal().filePath();
+    final var inputFilePath = video.getOriginal()
+                                   .filePath();
     final var outputFilePath = getResizeFilePath(inputFilePath);
     final var cmd = getResizeCommand(inputFilePath, outputFilePath, width, height);
     final var exitValue = process(cmd);

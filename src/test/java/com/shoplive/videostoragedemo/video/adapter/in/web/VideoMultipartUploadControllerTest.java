@@ -4,11 +4,8 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import javax.print.attribute.standard.Media;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -73,7 +70,8 @@ class VideoMultipartUploadControllerTest {
     final var mediaType = MediaType.MULTIPART_FORM_DATA_VALUE;
     final var file = mockMultipartFile(multipartFormName, fileName, byteSize, mediaType);
     final var requestBody = new VideoUploadRequest("test title");
-    final var request = multipart(TARGET_API).file(file).param("title", requestBody.title());
+    final var request = multipart(TARGET_API).file(file)
+                                             .param("title", requestBody.title());
 
     final var expectedVideoId = 1L;
     given(uploadCommand.upload(any(MultipartFile.class), any(VideoUploadRequest.class)))

@@ -8,7 +8,8 @@ public record VideoFileInfo(
 ) {
 
   public static VideoFileInfo from(Path path) {
-    return new VideoFileInfo(path.toFile().length(), path);
+    return new VideoFileInfo(path.toFile()
+                                 .length(), path);
   }
 
 }

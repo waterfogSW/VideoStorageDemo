@@ -19,7 +19,8 @@ public class VideoFileProvideService implements VideoFileProvideCommand {
   @Override
   public VideoFileResource provide(String fileName) {
     final var video = videoLookUpMetaDataPort.lookUp(fileName);
-    final var videoFilePath = video.getOriginal().filePath();
+    final var videoFilePath = video.getOriginal()
+                                   .filePath();
 
     final var videoFileName = videoFilePath.getFileName();
     final var resource = fileResourceUtil.readByteArrayResourceFromPath(videoFilePath);

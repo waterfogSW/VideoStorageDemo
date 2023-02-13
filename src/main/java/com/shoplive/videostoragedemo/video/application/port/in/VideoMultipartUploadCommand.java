@@ -7,6 +7,9 @@ import com.shoplive.videostoragedemo.video.adapter.in.web.dto.VideoUploadRespons
 
 public interface VideoMultipartUploadCommand {
 
-  VideoUploadResponse upload(MultipartFile file, VideoUploadRequest request);
+  VideoUploadResponse upload(
+      MultipartFile file,
+      VideoUploadRequest request
+  );
 
 }

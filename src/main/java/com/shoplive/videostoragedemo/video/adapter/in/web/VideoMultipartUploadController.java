@@ -11,7 +11,6 @@ import com.shoplive.videostoragedemo.video.adapter.in.web.dto.VideoUploadRequest
 import com.shoplive.videostoragedemo.video.adapter.in.web.dto.VideoUploadResponse;
 import com.shoplive.videostoragedemo.video.application.port.in.VideoMultipartUploadCommand;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController

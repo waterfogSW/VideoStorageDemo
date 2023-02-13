@@ -16,7 +16,8 @@ public class VideoMapper {
         video.getTitle(),
         mapToJpaEntity(video.getOriginal()),
         mapToJpaEntity(video.getResized()),
-        video.getCreatedAt().toString()
+        video.getCreatedAt()
+             .toString()
     );
   }
 
