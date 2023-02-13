@@ -16,7 +16,7 @@ public class VideoMapper {
         video.getTitle(),
         mapToJpaEntity(video.getOriginal()),
         mapToJpaEntity(video.getResized()),
-        video.getTitle()
+        video.getCreatedAt().toString()
     );
   }
 
@@ -45,7 +45,7 @@ public class VideoMapper {
   }
 
   private VideoFileInfo mapToDomainEntity(VideoFileInfoJpaEntity videoFileInfoJpaEntity) {
-    if(videoFileInfoJpaEntity == null) {
+    if (videoFileInfoJpaEntity == null) {
       return null;
     }
     return new VideoFileInfo(

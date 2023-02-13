@@ -13,6 +13,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.shoplive.videostoragedemo.common.properties.VideoStorageProperties;
+import com.shoplive.videostoragedemo.video.adapter.in.web.dto.VideoUploadRequest;
 import com.shoplive.videostoragedemo.video.application.port.out.VideoSaveMetadataPort;
 import com.shoplive.videostoragedemo.video.application.util.VideoFileFactory;
 import com.shoplive.videostoragedemo.video.application.util.VideoFileResizer;
@@ -47,12 +48,13 @@ class VideoMultipartUploadServiceTest {
   @DisplayName("Video 생성요청후, 메타데이터 저장을 요청")
   void requestCreateVideo() {
     //given
+    final var request = new VideoUploadRequest("test");
     final var mockMultipartFile = mockMultipartfile();
     given(videoFileFactory.create(anyString(), any(MultipartFile.class))).willReturn(mockVideoFileInfo());
     given(videoSaveMetadataPort.save(any(Video.class))).willReturn(mockSavedVideo());
 
     //when
-    videoMultipartUploadService.upload(mockMultipartFile);
+    videoMultipartUploadService.upload(mockMultipartFile, request);
 
     //then
     verify(videoSaveMetadataPort).save(any(Video.class));
