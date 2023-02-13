@@ -16,7 +16,7 @@ import org.springframework.mock.web.MockMultipartFile;
 
 import com.shoplive.videostoragedemo.common.properties.VideoStorageProperties;
 
-@DisplayName("App - 영상 파일 생성 기능")
+@DisplayName("Util - 영상 파일 생성 기능")
 @ExtendWith(MockitoExtension.class)
 class VideoFileFactoryTest {
 
