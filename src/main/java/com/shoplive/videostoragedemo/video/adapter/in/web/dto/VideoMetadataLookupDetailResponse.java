@@ -20,7 +20,7 @@ public record VideoMetadataLookupDetailResponse(
         VideoFileInfo videoFileInfo,
         String resourceUrl
     ) {
-      return new VideoFileInfoResponse(videoFileInfo.fileSize(), resourceUrl + videoFileInfo.filePath());
+      return new VideoFileInfoResponse(videoFileInfo.fileSize(), resourceUrl + videoFileInfo.filePath().getFileName());
     }
 
   }
