@@ -18,3 +18,4 @@ spring:
 video:
   storage:
     path: ./app/data
+    resize-prefix: resized_

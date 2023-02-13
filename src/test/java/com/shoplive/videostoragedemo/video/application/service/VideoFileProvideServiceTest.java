@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.io.ByteArrayResource;
 
+import com.shoplive.videostoragedemo.common.properties.VideoStorageProperties;
 import com.shoplive.videostoragedemo.video.application.port.out.VideoLookUpMetaDataPort;
 import com.shoplive.videostoragedemo.video.application.util.FileResourceUtil;
 import com.shoplive.videostoragedemo.video.domain.Video;
@@ -21,6 +22,9 @@ import com.shoplive.videostoragedemo.video.domain.VideoFileInfo;
 @DisplayName("App - 영상 파일 제공 기능")
 @ExtendWith(MockitoExtension.class)
 public class VideoFileProvideServiceTest {
+
+  @Mock
+  private VideoStorageProperties videoStorageProperties;
 
   @Mock
   private VideoLookUpMetaDataPort videoLookUpMetaDataPort;
@@ -44,6 +48,7 @@ public class VideoFileProvideServiceTest {
 
     final var expectedFileInfo = new VideoFileInfo(expectedFileSize, expectedFilePath);
     final var video = new Video(null, expectedTitle, expectedFileInfo, null);
+    given(videoStorageProperties.getResizePrefix()).willReturn("resized_");
     given(videoLookUpMetaDataPort.lookUpByFileName(fileName)).willReturn(video);
     given(fileResourceUtil.readByteArrayResourceFromPath(expectedFilePath)).willReturn(expectedByteArrayResource);
 

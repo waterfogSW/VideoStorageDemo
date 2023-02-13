@@ -2,6 +2,7 @@ package com.shoplive.videostoragedemo.video.application.service;
 
 import org.springframework.stereotype.Service;
 
+import com.shoplive.videostoragedemo.common.properties.VideoStorageProperties;
 import com.shoplive.videostoragedemo.video.application.port.in.VideoFileProvideCommand;
 import com.shoplive.videostoragedemo.video.application.port.out.VideoLookUpMetaDataPort;
 import com.shoplive.videostoragedemo.video.application.util.FileResourceUtil;
@@ -15,13 +16,14 @@ import lombok.RequiredArgsConstructor;
 public class VideoFileProvideService implements VideoFileProvideCommand {
 
   private final VideoLookUpMetaDataPort videoLookUpMetaDataPort;
+  private final VideoStorageProperties videoStorageProperties;
   private final FileResourceUtil fileResourceUtil;
 
   @Override
   public VideoFileResource provide(String fileName) {
     final var video = videoLookUpMetaDataPort.lookUpByFileName(fileName);
 
-    if (fileName.startsWith("resized_")) {
+    if (fileName.startsWith(videoStorageProperties.getResizePrefix())) {
       return getVideoFileResource(video.getResized());
     }
 

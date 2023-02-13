@@ -10,10 +10,15 @@ import lombok.Getter;
 public class VideoStorageProperties {
 
   private final String path;
+  private final String resizePrefix;
 
   @ConstructorBinding
-  public VideoStorageProperties(String path) {
+  public VideoStorageProperties(
+      String path,
+      String resizePrefix
+  ) {
     this.path = path.endsWith("/") ? path : path + "/";
+    this.resizePrefix = resizePrefix.endsWith("_") ? resizePrefix : resizePrefix + "_";
   }
 
 }
