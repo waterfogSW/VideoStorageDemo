@@ -34,7 +34,8 @@ public class VideoMultipartUploadServiceTest {
   private VideoMultipartUploadService videoMultipartUploadService;
 
   @Test
-  public void testUpload() throws Exception {
+  @DisplayName("영상 파일 요청 -> 영상 변환요청(비동기) -> 영상 id값 반환")
+  void testUpload() throws Exception {
     // Given
     final var videoId = 12345L;
     final var title = "Test Video";
