@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.scheduling.annotation.Async;
@@ -12,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.shoplive.videostoragedemo.common.properties.VideoStorageProperties;
 import com.shoplive.videostoragedemo.video.application.port.out.VideoMetadataSavePort;
-import com.shoplive.videostoragedemo.video.domain.Video;
 import com.shoplive.videostoragedemo.video.domain.VideoFileInfo;
 import com.shoplive.videostoragedemo.video.domain.VideoFileResource;
 
@@ -52,38 +52,25 @@ public class VideoFileUtil {
     }
   }
 
-  @Async
-  public void resize(
-      Video video,
+  @Async("resizeTaskExecutor")
+  public CompletableFuture<VideoFileInfo> resize(
+      VideoFileInfo videoFileInfo,
       int width,
       int height
   ) {
-    validateVideoStatus(video);
-    final var inputFilePath = video.getOriginal()
-                                   .filePath();
+    final var inputFilePath = videoFileInfo.filePath();
     final var outputFilePath = getResizeFilePath(inputFilePath);
 
     ffmpegUtil.resize(inputFilePath, outputFilePath, width, height);
 
     final var resizedFileInfo = VideoFileInfo.from(outputFilePath);
-    video.setResizedFile(resizedFileInfo);
-    videoMetadataSavePort.save(video);
+    return CompletableFuture.completedFuture(resizedFileInfo);
   }
 
   private Path getResizeFilePath(Path originalPath) {
     final var outputFileName = properties.getResizePrefix() + originalPath.getFileName();
     return originalPath.getParent()
                        .resolve(outputFileName);
-  }
-
-  private void validateVideoStatus(Video video) {
-    if (video.getOriginal() == null) {
-      throw new IllegalStateException("Original file not found");
-    }
-
-    if (video.getResized() != null) {
-      throw new IllegalStateException("Resized file already exist");
-    }
   }
 
   private void checkFileExists(Path path) {

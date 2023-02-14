@@ -1,6 +1,10 @@
 package com.shoplive.videostoragedemo.video.application.service;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
+
+import java.nio.file.Paths;
+import java.util.concurrent.CompletableFuture;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,7 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.shoplive.videostoragedemo.video.adapter.in.web.dto.VideoUploadRequest;
 import com.shoplive.videostoragedemo.video.application.port.out.VideoMetadataSavePort;
@@ -19,44 +22,51 @@ import com.shoplive.videostoragedemo.video.domain.VideoFileInfo;
 
 @DisplayName("App - 영상 파일 업로드 기능")
 @ExtendWith(MockitoExtension.class)
-class VideoMultipartUploadServiceTest {
+public class VideoMultipartUploadServiceTest {
 
   @Mock
-  VideoFileUtil videoFileUtil;
+  private VideoMetadataSavePort videoMetadataSavePort;
 
   @Mock
-  VideoMetadataSavePort videoMetadataSavePort;
+  private VideoFileUtil videoFileUtil;
 
   @InjectMocks
-  VideoMultipartUploadService videoMultipartUploadService;
+  private VideoMultipartUploadService videoMultipartUploadService;
 
   @Test
-  @DisplayName("Video 생성요청후, 메타데이터 저장을 요청")
-  void requestCreateVideo() {
-    //given
-    final var request = new VideoUploadRequest("test");
-    final var mockMultipartFile = mockMultipartfile();
-    given(videoFileUtil.create(any(MultipartFile.class))).willReturn(mockVideoFileInfo());
-    given(videoMetadataSavePort.save(any(Video.class))).willReturn(mockSavedVideo());
+  public void testUpload() throws Exception {
+    // Given
+    final var videoId = 12345L;
+    final var title = "Test Video";
+    final var multipartFile = new MockMultipartFile("file", new byte[]{});
+    final var request = new VideoUploadRequest(title);
 
-    //when
-    videoMultipartUploadService.upload(mockMultipartFile, request);
+    final var originalFileInfo = VideoFileInfo.from(Paths.get("test.mp4"));
+    final var resizedFileInfo = VideoFileInfo.from(Paths.get("test_resized.mp4"));
 
-    //then
-    verify(videoMetadataSavePort).save(any(Video.class));
-    verify(videoFileUtil).resize(any(Video.class), anyInt(), anyInt());
-  }
+    final var savedVideo = new Video(videoId, title, originalFileInfo, null);
 
-  private MockMultipartFile mockMultipartfile() {
-    return new MockMultipartFile("test", "test", "video/mp4", new byte[]{});
-  }
+    when(videoFileUtil.create(multipartFile)).thenReturn(originalFileInfo);
+    when(videoMetadataSavePort.save(any(Video.class))).thenReturn(savedVideo);
 
-  private VideoFileInfo mockVideoFileInfo() {
-    return new VideoFileInfo(100L, null);
-  }
+    // Asynchronously return the resized file info
+    CompletableFuture<VideoFileInfo> resizeFuture = new CompletableFuture<>();
+    resizeFuture.complete(resizedFileInfo);
+    when(videoFileUtil.resize(originalFileInfo, -1, 360)).thenReturn(resizeFuture);
 
-  private Video mockSavedVideo() {
-    return new Video(1L, "title", mockVideoFileInfo(), null);
+    // When
+    final var response = videoMultipartUploadService.upload(multipartFile, request);
+
+    // Then
+    assertThat(response.id()).isEqualTo(videoId);
+
+    verify(videoMetadataSavePort).save(savedVideo);
+    verify(videoFileUtil).resize(originalFileInfo, -1, 360);
+
+    // Wait for the asynchronous resize operation to complete
+    VideoFileInfo result = resizeFuture.get();
+    assertThat(savedVideo.getResized()).isNotNull()
+                                       .isEqualTo(resizedFileInfo);
   }
 
 }

@@ -10,6 +10,7 @@ import com.shoplive.videostoragedemo.video.application.port.in.VideoMultipartUpl
 import com.shoplive.videostoragedemo.video.application.port.out.VideoMetadataSavePort;
 import com.shoplive.videostoragedemo.video.application.util.VideoFileUtil;
 import com.shoplive.videostoragedemo.video.domain.Video;
+import com.shoplive.videostoragedemo.video.domain.VideoFileInfo;
 
 import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
@@ -34,9 +35,20 @@ public class VideoMultipartUploadService implements VideoMultipartUploadCommand 
     video.setOriginalFile(originalFileInfo);
     final var savedVideo = videoMetadataSavePort.save(video);
 
-    videoFileUtil.resize(savedVideo, -1, 360);
+    resizeVideoFile(savedVideo, originalFileInfo);
 
     return new VideoUploadResponse(savedVideo.getId());
+  }
+
+  private void resizeVideoFile(
+      Video video,
+      VideoFileInfo originalFileInfo
+  ) {
+    final var resizeCallBack = videoFileUtil.resize(originalFileInfo, -1, 360);
+    resizeCallBack.thenAccept(resizedFileInfo -> {
+      video.setResizedFile(resizedFileInfo);
+      videoMetadataSavePort.save(video);
+    });
   }
 
 }
