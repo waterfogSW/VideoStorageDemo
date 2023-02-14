@@ -5,6 +5,7 @@ import static org.mockito.BDDMockito.*;
 
 import java.nio.file.Path;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,6 +18,7 @@ import com.shoplive.videostoragedemo.video.application.port.out.VideoMetaDataLoo
 import com.shoplive.videostoragedemo.video.domain.Video;
 import com.shoplive.videostoragedemo.video.domain.VideoFileInfo;
 
+@DisplayName("App - 메타데이터 관리 기능")
 @ExtendWith(MockitoExtension.class)
 class VideoMetadataServiceTest {
 
@@ -30,6 +32,7 @@ class VideoMetadataServiceTest {
   private VideoMetadataService videoMetadataService;
 
   @Test
+  @DisplayName("id 값에 해당하는 영상 파일의 정보를 응답한다")
   void lookupDetail_shouldReturnCorrectResponse() {
     // Given
     final var expectedFileSize = 1024L;
