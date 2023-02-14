@@ -35,7 +35,6 @@ public class GlobalExceptionHandler {
                          .body(exceptionMessage);
   }
 
-
   @ExceptionHandler(RuntimeException.class)
   public ResponseEntity<String> handleRuntimeException(RuntimeException e) {
     final var exceptionMessage = e.getMessage();

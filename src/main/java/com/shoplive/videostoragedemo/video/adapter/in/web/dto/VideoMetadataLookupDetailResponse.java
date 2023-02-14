@@ -38,7 +38,8 @@ public record VideoMetadataLookupDetailResponse(
         video.getTitle(),
         VideoFileInfoResponse.of(video.getOriginal(), resourceUrl),
         VideoFileInfoResponse.of(video.getResized(), resourceUrl),
-        video.getCreatedAt().toString()
+        video.getCreatedAt()
+             .toString()
     );
   }
 

@@ -21,7 +21,6 @@ import com.shoplive.videostoragedemo.video.domain.VideoFileInfo;
 @ExtendWith(MockitoExtension.class)
 class VideoMultipartUploadServiceTest {
 
-
   @Mock
   VideoFileUtil videoFileUtil;
 

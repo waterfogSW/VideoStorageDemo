@@ -52,14 +52,17 @@ public class VideoFileProvideServiceTest {
     final var video = new Video(null, expectedTitle, expectedFileInfo, null);
     given(videoStorageProperties.getResizePrefix()).willReturn("resized_");
     given(videoMetaDataLookUpPort.lookUpByFileName(fileName)).willReturn(video);
-    given(videoFileUtil.readByteArrayResourceByVideoInfo(any(VideoFileInfo.class))).willReturn(expectedVideoFileResource);
+    given(videoFileUtil.readByteArrayResourceByVideoInfo(any(VideoFileInfo.class)))
+        .willReturn(expectedVideoFileResource);
 
     // When
     final var result = videoFileProvideService.provide(fileName);
 
     // Then
-    Assertions.assertThat(result.fileName()).isEqualTo(fileName);
-    Assertions.assertThat(result.resource()).isEqualTo(expectedByteArrayResource);
+    Assertions.assertThat(result.fileName())
+              .isEqualTo(fileName);
+    Assertions.assertThat(result.resource())
+              .isEqualTo(expectedByteArrayResource);
   }
 
 }

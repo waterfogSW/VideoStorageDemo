@@ -1,8 +1,5 @@
 package com.shoplive.videostoragedemo.common.properties;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.bind.ConstructorBinding;
 
