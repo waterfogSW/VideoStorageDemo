@@ -15,7 +15,7 @@ import org.springframework.core.io.ByteArrayResource;
 
 import com.shoplive.videostoragedemo.common.properties.VideoStorageProperties;
 import com.shoplive.videostoragedemo.video.application.port.out.VideoMetaDataLookUpPort;
-import com.shoplive.videostoragedemo.video.application.util.VideoFileStorageUtil;
+import com.shoplive.videostoragedemo.video.application.util.VideoFileUtil;
 import com.shoplive.videostoragedemo.video.domain.Video;
 import com.shoplive.videostoragedemo.video.domain.VideoFileInfo;
 import com.shoplive.videostoragedemo.video.domain.VideoFileResource;
@@ -31,7 +31,7 @@ public class VideoFileProvideServiceTest {
   private VideoMetaDataLookUpPort videoMetaDataLookUpPort;
 
   @Mock
-  private VideoFileStorageUtil videoFileStorageUtil;
+  private VideoFileUtil videoFileUtil;
 
   @InjectMocks
   private VideoFileProvideService videoFileProvideService;
@@ -52,7 +52,7 @@ public class VideoFileProvideServiceTest {
     final var video = new Video(null, expectedTitle, expectedFileInfo, null);
     given(videoStorageProperties.getResizePrefix()).willReturn("resized_");
     given(videoMetaDataLookUpPort.lookUpByFileName(fileName)).willReturn(video);
-    given(videoFileStorageUtil.readByteArrayResourceByVideoInfo(any(VideoFileInfo.class))).willReturn(expectedVideoFileResource);
+    given(videoFileUtil.readByteArrayResourceByVideoInfo(any(VideoFileInfo.class))).willReturn(expectedVideoFileResource);
 
     // When
     final var result = videoFileProvideService.provide(fileName);

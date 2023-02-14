@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class VideoFileStorageUtil {
+public class VideoFileUtil {
 
   private final VideoMetadataSavePort videoMetadataSavePort;
   private final VideoStorageProperties properties;
