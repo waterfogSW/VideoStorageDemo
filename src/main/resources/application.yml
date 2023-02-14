@@ -2,7 +2,7 @@ spring:
   jpa:
     database: mysql
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     open-in-view: false
     properties:
       dialect: org.hibernate.dialect.MySQLDialect
