@@ -8,7 +8,6 @@ import com.shoplive.videostoragedemo.video.adapter.in.web.dto.VideoUploadRequest
 import com.shoplive.videostoragedemo.video.adapter.in.web.dto.VideoUploadResponse;
 import com.shoplive.videostoragedemo.video.application.port.in.VideoMultipartUploadCommand;
 import com.shoplive.videostoragedemo.video.application.port.out.VideoMetadataSavePort;
-import com.shoplive.videostoragedemo.video.application.util.VideoFileResizer;
 import com.shoplive.videostoragedemo.video.application.util.VideoFileStorageUtil;
 import com.shoplive.videostoragedemo.video.domain.Video;
 
@@ -21,7 +20,6 @@ public class VideoMultipartUploadService implements VideoMultipartUploadCommand 
 
   private final VideoMetadataSavePort videoMetadataSavePort;
   private final VideoFileStorageUtil videoFileStorageUtil;
-  private final VideoFileResizer videoFileResizer;
 
   @Override
   @Transactional
@@ -36,7 +34,7 @@ public class VideoMultipartUploadService implements VideoMultipartUploadCommand 
     video.setOriginalFile(originalFileInfo);
     final var savedVideo = videoMetadataSavePort.save(video);
 
-    videoFileResizer.resize(savedVideo, -1, 360);
+    videoFileStorageUtil.resize(savedVideo, -1, 360);
 
     return new VideoUploadResponse(savedVideo.getId());
   }
