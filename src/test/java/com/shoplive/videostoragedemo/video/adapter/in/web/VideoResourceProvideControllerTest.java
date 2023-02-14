@@ -49,7 +49,7 @@ class VideoResourceProvideControllerTest {
            .andExpect(header().string(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName))
            .andExpect(content().bytes(content))
            .andDo(document(
-               "video-provide",
+               "Video file provide",
                preprocessResponse(prettyPrint()),
                pathParameters(parameterWithName("fileName").description("The name of the video file")),
                responseHeaders(

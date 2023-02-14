@@ -8,7 +8,6 @@ import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.nio.file.Path;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.DisplayName;
@@ -59,7 +58,7 @@ class VideoMetadataControllerTest {
            .andExpect(jsonPath("$.resized.videoUrl").value(resourceUrl + resizedVideoFileInfo.filePath()))
            .andExpect(jsonPath("$.createAt").value(createLocalDateTime.toString()))
            .andDo(document(
-               "video-metadata",
+               "Video information lookup",
                pathParameters(
                    parameterWithName("id").description("The ID of the video to retrieve")
                ),

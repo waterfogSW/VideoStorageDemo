@@ -36,31 +36,6 @@ class VideoMultipartUploadControllerTest {
   MockMvc mockMvc;
 
   @Test
-  @DisplayName("POST: /video/upload 요청 성공시 201응답")
-  void upload() throws Exception {
-    // given
-    final var multipartFormName = "file";
-    final var fileName = "video.mp4";
-    final var byteSize = 10;
-    final var mediaType = MediaType.MULTIPART_FORM_DATA_VALUE;
-    final var file = mockMultipartFile(multipartFormName, fileName, byteSize, mediaType);
-
-    final var expectedVideoId = 1L;
-    given(uploadCommand.upload(any(MultipartFile.class), any(VideoUploadRequest.class)))
-        .willReturn(mockVideoUploadResponse(expectedVideoId));
-
-    // when, then
-    mockMvc.perform(multipart(TARGET_API).file(file))
-           .andExpect(status().isCreated())
-           .andDo(
-               document(
-                   "Video multipart upload",
-                   requestParts(partWithName("file").description("Video file to upload"))
-               )
-           );
-  }
-
-  @Test
   @DisplayName("POST: /video/upload 제목포함 요청 성공시 201응답")
   void uploadWithTitle() throws Exception {
     // given
@@ -82,7 +57,7 @@ class VideoMultipartUploadControllerTest {
            .andExpect(status().isCreated())
            .andDo(
                document(
-                   "Video multipart upload with title",
+                   "Video multipart upload",
                    requestParts(
                        partWithName("file").description("Video file to upload"),
                        partWithName("title").description("Video title")
