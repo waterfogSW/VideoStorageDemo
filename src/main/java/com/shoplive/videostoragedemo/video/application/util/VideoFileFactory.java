@@ -3,8 +3,6 @@ package com.shoplive.videostoragedemo.video.application.util;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Objects;
-import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
