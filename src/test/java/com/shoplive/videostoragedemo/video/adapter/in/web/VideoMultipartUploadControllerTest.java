@@ -4,6 +4,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -45,16 +46,17 @@ class VideoMultipartUploadControllerTest {
     final var mediaType = MediaType.MULTIPART_FORM_DATA_VALUE;
     final var file = mockMultipartFile(multipartFormName, fileName, byteSize, mediaType);
     final var requestBody = new VideoUploadRequest("test title");
-    final var request = multipart(TARGET_API).file(file)
-                                             .param("title", requestBody.title());
 
     final var expectedVideoId = 1L;
     given(uploadCommand.upload(any(MultipartFile.class), any(VideoUploadRequest.class)))
         .willReturn(mockVideoUploadResponse(expectedVideoId));
 
     // when, then
-    mockMvc.perform(request)
+    mockMvc.perform(multipart(TARGET_API).file(file)
+                                         .param("title", requestBody.title()))
            .andExpect(status().isCreated())
+           .andExpect(status().isCreated())
+           .andExpect(jsonPath("$.id").value(expectedVideoId))
            .andDo(
                document(
                    "Video multipart upload",
@@ -62,6 +64,9 @@ class VideoMultipartUploadControllerTest {
                        partWithName("file").description("Video file to upload"),
                        partWithName("title").description("Video title")
                                             .optional()
+                   ),
+                   responseFields(
+                       fieldWithPath("id").description("The ID of the uploaded video")
                    )
                )
            );
