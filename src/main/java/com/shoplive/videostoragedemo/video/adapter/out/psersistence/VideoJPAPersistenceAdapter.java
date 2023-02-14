@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 @PersistenceAdapter
 @RequiredArgsConstructor
-public class VideoPersistenceAdapterLookUpSave implements
+public class VideoJPAPersistenceAdapter implements
     VideoMetadataSavePort,
     VideoMetaDataLookUpPort {
 
