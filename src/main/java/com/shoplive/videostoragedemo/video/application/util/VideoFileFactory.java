@@ -2,6 +2,7 @@ package com.shoplive.videostoragedemo.video.application.util;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.springframework.stereotype.Component;
@@ -20,11 +21,19 @@ public class VideoFileFactory {
 
   public VideoFileInfo create(MultipartFile file) {
     final var createPath = Paths.get(properties.getPath() + file.getOriginalFilename());
+    checkFileExists(createPath);
+
     try {
       final var path = Files.write(createPath, file.getBytes());
       return VideoFileInfo.from(path);
     } catch (IOException e) {
       throw new RuntimeException(e.getMessage());
+    }
+  }
+
+  private void checkFileExists(Path path) {
+    if (Files.exists(path)) {
+      throw new IllegalArgumentException("File already exists");
     }
   }
 
