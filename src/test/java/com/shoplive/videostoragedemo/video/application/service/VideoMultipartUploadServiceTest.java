@@ -13,8 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.shoplive.videostoragedemo.video.adapter.in.web.dto.VideoUploadRequest;
 import com.shoplive.videostoragedemo.video.application.port.out.VideoMetadataSavePort;
-import com.shoplive.videostoragedemo.video.application.util.VideoFileFactory;
 import com.shoplive.videostoragedemo.video.application.util.VideoFileResizer;
+import com.shoplive.videostoragedemo.video.application.util.VideoFileStorageUtil;
 import com.shoplive.videostoragedemo.video.domain.Video;
 import com.shoplive.videostoragedemo.video.domain.VideoFileInfo;
 
@@ -24,7 +24,7 @@ class VideoMultipartUploadServiceTest {
 
 
   @Mock
-  VideoFileFactory videoFileFactory;
+  VideoFileStorageUtil videoFileStorageUtil;
 
   @Mock
   VideoMetadataSavePort videoMetadataSavePort;
@@ -41,7 +41,7 @@ class VideoMultipartUploadServiceTest {
     //given
     final var request = new VideoUploadRequest("test");
     final var mockMultipartFile = mockMultipartfile();
-    given(videoFileFactory.create(any(MultipartFile.class))).willReturn(mockVideoFileInfo());
+    given(videoFileStorageUtil.create(any(MultipartFile.class))).willReturn(mockVideoFileInfo());
     given(videoMetadataSavePort.save(any(Video.class))).willReturn(mockSavedVideo());
 
     //when

@@ -8,8 +8,8 @@ import com.shoplive.videostoragedemo.video.adapter.in.web.dto.VideoUploadRequest
 import com.shoplive.videostoragedemo.video.adapter.in.web.dto.VideoUploadResponse;
 import com.shoplive.videostoragedemo.video.application.port.in.VideoMultipartUploadCommand;
 import com.shoplive.videostoragedemo.video.application.port.out.VideoMetadataSavePort;
-import com.shoplive.videostoragedemo.video.application.util.VideoFileFactory;
 import com.shoplive.videostoragedemo.video.application.util.VideoFileResizer;
+import com.shoplive.videostoragedemo.video.application.util.VideoFileStorageUtil;
 import com.shoplive.videostoragedemo.video.domain.Video;
 
 import io.micrometer.common.util.StringUtils;
@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class VideoMultipartUploadService implements VideoMultipartUploadCommand {
 
   private final VideoMetadataSavePort videoMetadataSavePort;
-  private final VideoFileFactory videoFileFactory;
+  private final VideoFileStorageUtil videoFileStorageUtil;
   private final VideoFileResizer videoFileResizer;
 
   @Override
@@ -32,7 +32,7 @@ public class VideoMultipartUploadService implements VideoMultipartUploadCommand 
     final var title = StringUtils.isBlank(request.title()) ? multipartFile.getOriginalFilename() : request.title();
     final var video = Video.from(title);
 
-    final var originalFileInfo = videoFileFactory.create(multipartFile);
+    final var originalFileInfo = videoFileStorageUtil.create(multipartFile);
     video.setOriginalFile(originalFileInfo);
     final var savedVideo = videoMetadataSavePort.save(video);
 

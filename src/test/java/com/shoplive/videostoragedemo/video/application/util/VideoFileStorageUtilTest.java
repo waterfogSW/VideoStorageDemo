@@ -18,13 +18,13 @@ import com.shoplive.videostoragedemo.common.properties.VideoStorageProperties;
 
 @DisplayName("Util - 영상 파일 생성 기능")
 @ExtendWith(MockitoExtension.class)
-class VideoFileFactoryTest {
+class VideoFileStorageUtilTest {
 
   @Mock
   VideoStorageProperties properties;
 
   @InjectMocks
-  VideoFileFactory factory;
+  VideoFileStorageUtil storageUtil;
 
   @Test
   @DisplayName("영상 파일 생성")
@@ -46,7 +46,7 @@ class VideoFileFactoryTest {
     );
 
     // call the create method
-    final var fileInfo = factory.create(mockFile);
+    final var fileInfo = storageUtil.create(mockFile);
 
     // assert that the file was created and has the correct content
     final var filePath = fileInfo.filePath();
