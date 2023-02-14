@@ -12,10 +12,35 @@ import lombok.extern.slf4j.Slf4j;
 public class GlobalExceptionHandler {
 
   @ExceptionHandler(MaxUploadSizeExceededException.class)
-  public ResponseEntity<String> sizeLimitExceed(Exception e) {
+  public ResponseEntity<String> handleMaxUploadSizeExceededException(MaxUploadSizeExceededException e) {
     final var exceptionMessage = e.getMessage();
     log.info(exceptionMessage);
     return ResponseEntity.badRequest()
+                         .body(exceptionMessage);
+  }
+
+  @ExceptionHandler(IllegalArgumentException.class)
+  public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException e) {
+    final var exceptionMessage = e.getMessage();
+    log.info(exceptionMessage);
+    return ResponseEntity.badRequest()
+                         .body(exceptionMessage);
+  }
+
+  @ExceptionHandler(NotFoundException.class)
+  public ResponseEntity<String> handleNotFoundException(NotFoundException e) {
+    final var exceptionMessage = e.getMessage();
+    log.info(exceptionMessage);
+    return ResponseEntity.badRequest()
+                         .body(exceptionMessage);
+  }
+
+
+  @ExceptionHandler(RuntimeException.class)
+  public ResponseEntity<String> handleRuntimeException(RuntimeException e) {
+    final var exceptionMessage = e.getMessage();
+    log.info(exceptionMessage);
+    return ResponseEntity.internalServerError()
                          .body(exceptionMessage);
   }
 
