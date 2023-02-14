@@ -1,5 +1,6 @@
 package com.shoplive.videostoragedemo.video.application.service;
 
+import org.springframework.core.task.TaskRejectedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,7 +15,9 @@ import com.shoplive.videostoragedemo.video.domain.VideoFileInfo;
 
 import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class VideoMultipartUploadService implements VideoMultipartUploadCommand {
@@ -44,11 +47,15 @@ public class VideoMultipartUploadService implements VideoMultipartUploadCommand 
       Video video,
       VideoFileInfo originalFileInfo
   ) {
-    final var resizeCallBack = videoFileUtil.resize(originalFileInfo, -1, 360);
-    resizeCallBack.thenAccept(resizedFileInfo -> {
-      video.setResizedFile(resizedFileInfo);
-      videoMetadataSavePort.save(video);
-    });
+    try {
+      final var resizeCallBack = videoFileUtil.resize(originalFileInfo, -1, 360);
+      resizeCallBack.thenAccept(resizedFileInfo -> {
+        video.setResizedFile(resizedFileInfo);
+        videoMetadataSavePort.save(video);
+      });
+    } catch (TaskRejectedException e) {
+      log.info("id {} Video resizing rejected", video.getId());
+    }
   }
 
 }
