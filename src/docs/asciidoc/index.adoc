@@ -1,0 +1,44 @@
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+= Video Storage Service API
+:toc: left
+:toclevels: 4
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+
+== Video multipart upload
+=== Curl request
+include::{snippets}/Video multipart upload/curl-request.adoc[curl]
+=== Request parts
+include::{snippets}/Video multipart upload/request-parts.adoc[]
+=== Response Fields
+include::{snippets}/Video multipart upload/response-fields.adoc[]
+=== Http request
+include::{snippets}/Video multipart upload/http-request.adoc[]
+=== Http response
+include::{snippets}/Video multipart upload/http-response.adoc[]
+
+== Video file provide
+=== Curl request
+include::{snippets}/Video file provide/curl-request.adoc[]
+=== Path parameter
+include::{snippets}/Video file provide/path-parameters.adoc[]
+=== Http request
+include::{snippets}/Video file provide/http-request.adoc[]
+=== Http response
+include::{snippets}/Video file provide/http-response.adoc[]
+
+== Video information lookup
+=== Curl request
+include::{snippets}/Video information lookup/curl-request.adoc[]
+=== Path parameter
+include::{snippets}/Video information lookup/path-parameters.adoc[]
+=== Response Fields
+include::{snippets}/Video information lookup/response-fields.adoc[]
+=== Http request
+include::{snippets}/Video information lookup/http-request.adoc[]
+=== Http response
+include::{snippets}/Video information lookup/http-response.adoc[]

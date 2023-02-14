@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.0.2'
     id 'io.spring.dependency-management' version '1.1.0'
-    id 'org.asciidoctor.convert' version '2.2.0'
+    id 'org.asciidoctor.jvm.convert' version '3.3.2'
 }
 
 group = 'com.shoplive'
@@ -13,6 +13,8 @@ configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
+
+    asciidoctorExtensions
 }
 
 repositories {
@@ -59,4 +61,14 @@ tasks.named('test') {
 tasks.named('asciidoctor') {
     inputs.dir snippetsDir
     dependsOn test
+}
+
+tasks.register('copyAsciidoctor', Copy) {
+    dependsOn asciidoctor
+    from "${asciidoctor.outputDir}"
+    into "${sourceSets.main.output.resourcesDir}/static/docs"
+}
+
+bootJar {
+    dependsOn copyAsciidoctor
 }
